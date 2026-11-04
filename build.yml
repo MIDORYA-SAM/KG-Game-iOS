@@ -1,0 +1,29 @@
+name: Compilar IPA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - name: Baixar projeto
+        uses: actions/checkout@v4
+      - name: Instalar XcodeGen
+        run: brew install xcodegen
+      - name: Gerar projeto Xcode
+        run: xcodegen generate
+      - name: Compilar app sem assinatura
+        run: |
+          xcodebuild -project KGGame.xcodeproj -scheme KGGame -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath build CODE_SIGNING_ALLOWED=NO build
+      - name: Criar arquivo IPA
+        run: |
+          mkdir -p Payload
+          cp -R build/Build/Products/Release-iphoneos/KGGame.app Payload/
+          zip -qry KGGame.ipa Payload
+      - name: Disponibilizar IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: KGGame-IPA
+          path: KGGame.ipa
+          retention-days: 7
