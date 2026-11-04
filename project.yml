@@ -1,0 +1,29 @@
+name: KGGame
+options:
+  bundleIdPrefix: com.kggames
+settings:
+  base:
+    IPHONEOS_DEPLOYMENT_TARGET: '16.0'
+    SWIFT_VERSION: '5.0'
+    TARGETED_DEVICE_FAMILY: '1'
+    GENERATE_INFOPLIST_FILE: YES
+    INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+    INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+    INFOPLIST_KEY_UILaunchScreen_Generation: YES
+    INFOPLIST_KEY_UIStatusBarHidden: YES
+    INFOPLIST_KEY_UIRequiresFullScreen: YES
+    CODE_SIGNING_ALLOWED: NO
+targets:
+  KGGame:
+    type: application
+    platform: iOS
+    sources:
+      - path: Game/App.swift
+      - path: Game/Web
+        type: folder
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.kggames.firstgame
+        PRODUCT_NAME: KGGame
+        SWIFT_EMIT_LOC_STRINGS: NO
